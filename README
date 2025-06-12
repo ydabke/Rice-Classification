@@ -1,0 +1,79 @@
+# Rice Type Classification using PyTorch
+
+## Project Overview
+
+This project is a binary classification task to distinguish between two types of rice grains using machine learning. The dataset contains various geometrical features of rice grains such as Area, Perimeter, MajorAxisLength, and others. I used PyTorch to build a simple neural network model that learns to classify the rice types based on these features.
+
+My goal with this project was not just to achieve good accuracy, but to learn the fundamentals of PyTorch—including tensors, models, training loops, data handling, and device management (CPU vs GPU).
+
+## What I Learned
+
+This was my first hands-on experience with PyTorch, and here are some of the key concepts I picked up:
+
+* **Tensors & GPU computation**: Understanding how to convert NumPy arrays into PyTorch tensors and how to move them to GPU (`cuda`) for faster computation.
+* **Creating custom Datasets and DataLoaders**: I learned to subclass `torch.utils.data.Dataset` and use `DataLoader` to efficiently batch and shuffle data during training.
+* **Building neural networks with `nn.Module`**: I defined a small feedforward neural network with one hidden layer and a sigmoid activation for binary classification.
+* **Loss and optimization**: Used `BCELoss` and the Adam optimizer to train the network.
+* **Training and evaluation loops**: I implemented custom training and validation loops and kept track of performance metrics over epochs.
+* **Plotting metrics**: Visualized training/validation accuracy and loss to better understand model performance over time.
+
+## Dataset
+
+* **Source**: [Rice Classification Dataset on Kaggle](https://www.kaggle.com/datasets/mssmartypants/rice-type-classification)
+* **Size**: \~18,000 samples
+* **Features**: 10 numeric features per sample
+* **Labels**: Binary (0 or 1) indicating the rice type
+
+## How the Model Works
+
+1. **Data Preprocessing**:
+
+   * Dropped the `id` column and normalized all feature values between 0 and 1.
+   * Split the data into training, validation, and test sets (70/15/15 split).
+
+2. **Model Architecture**:
+
+   Input (10 features)
+   ↓
+   Linear layer (10 → 10 neurons)
+   ↓
+   Linear layer (10 → 1)
+   ↓
+   Sigmoid activation
+
+   The final output is a probability between 0 and 1, which is then rounded to make binary predictions.
+
+3. **Training Setup**:
+
+   * Loss Function: `nn.BCELoss` (binary cross-entropy)
+   * Optimizer: `Adam`
+   * Epochs: 10
+   * Batch Size: 32
+
+4. **Performance**:
+
+   * Final **Validation Accuracy**: \~98.8%
+   * Final **Test Accuracy**: \~98.4%
+
+## Results
+
+The model converged quickly and showed strong performance with no overfitting. The loss consistently decreased, and accuracy improved across training and validation sets.
+
+## Key Files and Usage
+
+* **Notebook/Script**: All logic is contained in a single file, ideal for reproducibility.
+* **To Run**:
+
+  * Upload the notebook to [Google Colab](https://colab.research.google.com/)
+  * Enable GPU via `Runtime > Change runtime type`
+  * Run all cells sequentially
+
+## Future Improvements
+
+* Use a deeper network or try dropout for regularization.
+* Apply this learning to a multi-class classification task.
+* Explore using `nn.BCEWithLogitsLoss` to avoid using an explicit `Sigmoid`.
+
+## Final Thoughts
+
+This project was a great introduction to PyTorch. It helped me understand how to structure a machine learning pipeline—from data handling to model training and evaluation. Most importantly, it gave me confidence to tackle more complex problems using PyTorch in the future.
